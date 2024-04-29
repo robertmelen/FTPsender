@@ -40,7 +40,7 @@ class ErrorHandling:
 
     '''
 
-    Error handlind class
+    Error handling class
 
     '''
     def error_message(self, error):
