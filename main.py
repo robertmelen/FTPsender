@@ -44,13 +44,15 @@ class ErrorHandling:
     Error handling class
 
     '''
-    def error_message(self, error):
-        print(f"Failed to connect. Error: {error}")
+    def __init__(self, error):
+        self.error = error
+    def error_message(self):
+        print(f"Failed to connect. Error: {self.error}")
     
 
 
 
-class FTPconnect(ErrorHandling):
+class FTPconnect():
 
     '''
 
@@ -59,6 +61,7 @@ class FTPconnect(ErrorHandling):
     '''
     def __init__(self, server_details) -> None:
         self.server_details= server_details
+        
     
     def connect(self, host, user, password):
         try:
@@ -66,7 +69,9 @@ class FTPconnect(ErrorHandling):
             ftp.login(user, password)
             return ftp
         except ftplib.all_errors as error:
-            self.error_message(error)
+            print(error)
+            handle_error = ErrorHandling(error)
+            handle_error.error_message()
             return None
 
         
