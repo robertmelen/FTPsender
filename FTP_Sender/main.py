@@ -59,10 +59,7 @@ class FTPconnect():
     Class to handle connection to a FTP server
     
     '''
-    def __init__(self, server_details) -> None:
-        self.server_details= server_details
-        
-    
+   
     def connect(self, host, user, password):
         try:
             ftp = ftplib.FTP(host)
@@ -99,8 +96,8 @@ class SendFiles(FTPconnect, GetFiles):
 
     '''
     def __init__(self, server_details, folder):
-        super().__init__(server_details)  
         GetFiles.__init__(self, folder)    
+        self.server_details = server_details
         self.folder = folder               
 
     def send(self):
@@ -109,14 +106,10 @@ class SendFiles(FTPconnect, GetFiles):
             if send:
                 print("Number of files to send", self.file_number())
                 print(send.getwelcome())
-                
-                #construct full file path
                 for file_name in self.file_list:
                     file_path = Path(self.folder, file_name) 
                     print(file_path)
                     with file_path.open(mode='rb') as file:
-
-                        #Sends file and checks the response
                         response = send.storbinary(f'STOR {file_name}', file)
                         if response.startswith('226'):  
                             print(f"File '{file_name}' sent successfully to {server['host']}")
