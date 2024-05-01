@@ -1,6 +1,9 @@
 import unittest
+import ftplib
 from FTP_Sender import main
 from FTP_Sender.main import FTPconnect
+
+runner = unittest.TextTestRunner(verbosity=2)
 
 class TestFTPconnect(unittest.TestCase):
 
@@ -8,25 +11,21 @@ class TestFTPconnect(unittest.TestCase):
     Test uses a public FTP server. FTPConnect will return None if connection fails"""
 
     def test_connect(self):
-
-        server_details = {'host':'ftp.dlptest.com', 'user': 'dlpuser', 'password': 'rNrKYTX9g7z3RgJRmxWuGHbeu'}
-        ftp_connect = FTPconnect(server_details)
+        ftp_connect = FTPconnect()
         test_connect = ftp_connect.connect('ftp.dlptest.com', 'dlpuser', 'rNrKYTX9g7z3RgJRmxWuGHbeu')
         self.assertIsNotNone(test_connect)
         test_connect.quit()
 
+    """Tests if FTPconnect raises an error if it cannot connect to a server
+    method is passed false connection details."""
 
     def test_errors(self):
-        #connect to a ftp server that is invalid
-        server_details = {'host': 'foo', 'user': 'bar'}
-        ftp_server = FTPconnect(server_details)
-        ftp_server.connect()
+        ftp_server = FTPconnect()
+        test = ftp_server.connect('foo', 'bar', 'foobar')
+        self.assertIsNone(test)
 
-#class TestErrorHandling(unittest.TestCase):
-
-
-    
-
-
+        
 if __name__ == '__main__': 
-    unittest.main()
+     suite = unittest.TestLoader().loadTestsFromTestCase(TestFTPconnect)
+     runner = unittest.TextTestRunner(verbosity=2)
+     runner.run(suite)
