@@ -16,6 +16,7 @@ Date: 29/4/2024
 
 import ftplib
 import os
+from pathlib import Path
 from dotenv import dotenv_values
 
 secrets = dotenv_values(".env")
@@ -106,9 +107,9 @@ class SendFiles(FTPconnect, GetFiles):
                 
                 #construct full file path
                 for file_name in self.file_list:
-                    file_path = os.path.join(self.folder, file_name) 
+                    file_path = Path(self.folder, file_name) 
                     print(file_path)
-                    with open(file_path, 'rb') as file:
+                    with file_path.open(mode='rb') as file:
 
                         #Sends file and checks the response
                         response = send.storbinary(f'STOR {file_name}', file)
@@ -123,7 +124,7 @@ class SendFiles(FTPconnect, GetFiles):
 
 
 if __name__ == "__main__":
-    sender = SendFiles(ftp_server_details, r"D:\Images\FTP folder")
+    sender = SendFiles(ftp_server_details, Path("D:\Images\FTP folder"))
     sender.send()
     
 
