@@ -19,8 +19,8 @@ import os
 from pathlib import Path
 from dotenv import dotenv_values
 
-secrets = dotenv_values(".env")
-local_secrets = dotenv_values(".env")
+secrets = dotenv_values()
+local_secrets = dotenv_values()
 
 
 
