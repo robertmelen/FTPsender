@@ -32,9 +32,13 @@ ftp_server_details = (
 
     {'host':os.environ.get('HOST2'), 
      'user':os.environ.get('HOST2_USER'), 
-     'password':os.environ.get('HOST2_PASSWORD')}
+     'password':os.environ.get('HOST2_PASSWORD')},
+     
 
 )
+
+#ftp_server_details = {'host': 'ftp.example.com', 'user': 'username', 'password': 'password'}
+
 
 
 class ErrorHandling:
