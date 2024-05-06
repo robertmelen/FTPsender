@@ -54,12 +54,12 @@ class TestSendFile(unittest.TestCase):
         #dictionary within a tuple. Using a singleton tuple, you must include a comma when assigning 
         #the value to a variable. If you don’t include the comma, Python does not store the 
         #value as a tuple and it will raise a TypeError: string indices must be integers
-        ftp_server_details = ({'host':'test.ftp', 'user':'test', 'password':'test'},)
+        ftp_server_details = ({'details': {'host':'test.ftp', 'user':'test', 'password':'test'}},)
         temp_dir = tempfile.mkdtemp()
         files = [Path(temp_dir).joinpath('image1.jpg')]
         for file_path in files:
             with tempfile.NamedTemporaryFile(mode='wb') as jpg:
-                with open(file_path, 'w'):
+                with open(file_path, 'wb'):
                     jpg.write(b"temp jpg")
             sender = SendFiles(ftp_server_details, Path(temp_dir))
             sender.send()

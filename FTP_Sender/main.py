@@ -17,27 +17,13 @@ Date: 29/4/2024
 import ftplib
 import os
 from pathlib import Path
-from dotenv import dotenv_values
-
-secrets = dotenv_values()
-local_secrets = dotenv_values()
+from servers import ftp_server_details
 
 
 
-ftp_server_details = (
 
-    {'host':os.environ.get('HOST1'), 
-     'user':os.environ.get('HOST1_USER'), 
-     'password':os.environ.get('HOST1_PASSWORD')},
 
-    {'host':os.environ.get('HOST2'), 
-     'user':os.environ.get('HOST2_USER'), 
-     'password':os.environ.get('HOST2_PASSWORD')},
-     
 
-)
-
-#ftp_server_details = {'host': 'ftp.example.com', 'user': 'username', 'password': 'password'}
 
 
 
@@ -106,9 +92,11 @@ class SendFiles(FTPconnect, GetFiles):
 
     def send(self):
         for server in self.server_details:
-            send = self.connect(server['host'], server['user'], server['password'])
+            send = self.connect(server['details']['host'], 
+                                server['details']['user'], 
+                                server['details']['password'])
             if send:
-                print("Number of files to send", self.file_number())
+                print("Number of files to send", self.file_number())    
                 print(send.getwelcome())
                 for file_name in self.file_list:
                     file_path = Path(self.folder, file_name) 
@@ -116,21 +104,35 @@ class SendFiles(FTPconnect, GetFiles):
                     with file_path.open(mode='rb') as file:
                         response = send.storbinary(f'STOR {file_name}', file)
                         if response.startswith('226'):  
-                            print(f"File '{file_name}' sent successfully to {server['host']}")
+                            print(f"File '{file_name}' sent successfully to {server['details']['host']}")
                         else:
-                            print(f"Failed to send file '{file_name}' to {server['host']}: {response}")
+                            print(f"Failed to send file '{file_name}' to {server['details']['host']}: {response}")
                 print(self.file_number(), "FILES SENT SUCCESSFULLY")
                 send.quit()   
             else:
-                print(f"Sorry, unable to connect to {server['host']}")        
+                print(f"Sorry, unable to connect to {server['details']['host']}")        
 
 
 if __name__ == "__main__":
-    sender = SendFiles(ftp_server_details, Path("D:\Images\FTP folder"))
-    sender.send()
-    
+    print("....FTP SERVER MENU....")
+    number_of_choices = 1
+    for menu, server in enumerate(ftp_server_details):
+        print(f"{menu + 1}:" + " " + f"{server['name']}")
+        number_of_choices += menu 
+        
+    print(f"You have {number_of_choices} server choices, press Q to")
 
+    choice = int(input("Please choose which server to send to. Press '0' for all: "))
     
+    if choice == 0:
+        sender = SendFiles(ftp_server_details, Path(os.environ.get('FOLDER')))
+        sender.send()
+    elif 1 <= choice <= len(ftp_server_details):
+        sender = SendFiles([ftp_server_details[choice - 1]], Path(os.environ.get('FOLDER')))
+        sender.send()
+    else:
+        print("Invalid choice. Please choose a valid option.")
+
 
 
 
