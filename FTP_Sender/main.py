@@ -121,17 +121,18 @@ if __name__ == "__main__":
         number_of_choices += menu 
         
     print(f"You have {number_of_choices} server choices, press Q to")
-
-    choice = int(input("Please choose which server to send to. Press '0' for all: "))
-    
-    if choice == 0:
-        sender = SendFiles(ftp_server_details, Path(os.environ.get('FOLDER')))
-        sender.send()
-    elif 1 <= choice <= len(ftp_server_details):
-        sender = SendFiles([ftp_server_details[choice - 1]], Path(os.environ.get('FOLDER')))
-        sender.send()
-    else:
-        print("Invalid choice. Please choose a valid option.")
+    while True:
+        try:
+            choice = int(input("Please choose which server to send to. Press '0' for all or any key to Quit: "))
+            if choice == 0:
+                sender = SendFiles(ftp_server_details, Path(os.environ.get('FOLDER')))
+                sender.send()
+            elif 1 <= choice <= len(ftp_server_details):
+                sender = SendFiles([ftp_server_details[choice - 1]], Path(os.environ.get('FOLDER')))
+                sender.send()
+        except ValueError:
+            print("Quitting")
+            break
 
 
 
