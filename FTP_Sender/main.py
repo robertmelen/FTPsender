@@ -115,7 +115,7 @@ class SendFiles(FTPconnect, GetFiles):
 
 if __name__ == "__main__":
     print("....FTP SERVER MENU....")
-    number_of_choices = 1
+    number_of_choices = 0
     for menu, server in enumerate(ftp_server_details):
         print(f"{menu + 1}:" + " " + f"{server['name']}")
         number_of_choices += menu 

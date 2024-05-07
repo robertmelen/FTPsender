@@ -26,5 +26,13 @@ ftp_server_details = (
      
      },
      
+    {'name':os.environ.get('HOST3_NAME3'),
+     'details': {
+     'host':os.environ.get('HOST3'), 
+     'user':os.environ.get('HOST3_USER'), 
+     'password':os.environ.get('HOST3_PASSWORD')
+                }
+     
+     },
 
 )

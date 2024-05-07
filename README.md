@@ -15,7 +15,7 @@ If you are in the position (such as a photographer) where you need to regulary s
 
 ##### Language: Python
 
-##### Overview 
+###### Overview 
 
 - FtplibFTP protocol client handles the sending of files.
  - Pathlib's Path class is used for file handling, enabling a platform-independent way to manipulate file paths and directories and making the code less prone to human error. 
@@ -32,8 +32,15 @@ Server deatils are held in server.py, deatils are passed uing environment varibl
 ### Dependencies
 - Python (version 3.9.5)
 - ftplib 
-- pathlib.Path
+- pathlib
 - dotenv
 
 ### How to use
+
+###### Installation
+First clone the repository
+```
+git clone https://github.com/robertmelen/FTPsender.git
+```
+
 
