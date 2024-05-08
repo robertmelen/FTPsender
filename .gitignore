@@ -1,1 +1,28 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Environment variables
 .env
+.env.*
+
+# Dependency directories
+lib/
+libs/
