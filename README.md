@@ -20,18 +20,18 @@ If you are in the position (such as a photographer) where you need to regulary s
 
 - **FtplibFTP** protocol client handles the sending of files.
  - **Pathlib** Path class is used for file handling, enabling a platform-independent way to manipulate file paths and directories and making the code less prone to human error. 
- - Server detils are handled securley via environment varibles   
+ - Server details are handled securely via environment variables  
 
 
-The core of the project is within the `main.py` file which is structred in this way.
+The core of the project is within the `main.py` file which is structured in this way.
 
 - Classes are defined for handling FTP connections, error handling, retrieving files, and sending files.
 - Contains the main execution logic within the `__main__` block.
 
-Server deatils are held in `server.py`, details are passed using environment varibles handled by the **python-environ** package.
+Server details are held in `server.py`, these are passed using environment variables handled by the **python-environ** package.
 
 ### Dependencies
-- Python (version 3.9.5)
+- Python 3+
 - python-environ
 
 ### How to use
@@ -50,7 +50,7 @@ Once cloned and `python-environ` is successfully installed, create a `.env` file
 
 
 ###### How to use the server details within the '.env' file and `main.py`.
-Your file should look like this, just amend with your own credentials and increase varible number with each server you add.
+Your file should look like this, just amend with your own credentials and increase variable number with each server you add.
 ```
 HOST1_NAME1=Personal
 HOST1=ftp.example.com
@@ -63,7 +63,7 @@ HOST2_USER=foobar
 HOST2_PASSWORD=password
 
 ```
-Use the `env` varibles by adding them as a `dictionary` within the `ftp_server_deatils` `tuple`. Refer to the dotenv documentation [here](https://pypi.org/project/python-dotenv/) for more information on environment varibles, if needed.
+Use the `env` variables by adding them as a `dictionary` within the `ftp_server_details` `tuple`. Refer to the dotenv documentation [here](https://pypi.org/project/python-dotenv/) for more information on environment variables, if needed.
 
 ```
 ftp_server_details = (
@@ -87,11 +87,11 @@ ftp_server_details = (
      },)
 ```
 
-Once setup, run `main.py` and you will see a menu within your terminal with your servers listed. Just press the corresponding number which will send files to that server.
+Once setup, run `main.py` and you will see a menu within your terminal with your servers listed. Just press the corresponding number, which will send files to that server.
 To send files to all servers, press `0`. Press any other key to exit the program.
 
 
-#### Roadmap
+### Roadmap
 
 FTPSender works well, but will be improved! **Coming soon....**
 - Ability to add new servers from the menu
@@ -99,9 +99,9 @@ FTPSender works well, but will be improved! **Coming soon....**
 - Improved customisation of server settings (adding port and mode options)
 - Improved user feedback once files are sent
 - File sending progress
-- Additional unit testing willbe added asap
+- Additional unit testing will be added asap
 
-#### Tests
+### Tests
 
 The file `test_ftp_sender.py` includes three unit tests, each testing that core functionality is working. Feel free to run these test before using FTPSender.
 
@@ -109,15 +109,15 @@ The file `test_ftp_sender.py` includes three unit tests, each testing that core 
 - **TestGetFiles** tests that the `GetFiles` class is only using a single folder as source
 - **TestFTPconnect** checks that `ftplib` is called with `host`, and the `connect()` method is called once
 
-#### License
+### License
 
 Distributed under the MIT License. See LICENSE.txt for more information.
 
 
-#### Acknowledgments
+### Acknowledgments
 
 
 Many thanks to all the contributors of ftplib which does all the heavy lifting for this project. Source code can be found [here](https://github.com/python/cpython/blob/3.12/Lib/ftplib.py)
 
-Also thanks to **u/Diapolo10** on Reddit, who gave me advice on much needed improvements to the code and this respository, I've learn't a lot! Much appreciated.
+Also thanks to **u/Diapolo10** on Reddit, who gave me advice on much-needed improvements to the code and this repository, I've learned a lot! Much appreciated.
 
