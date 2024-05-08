@@ -1,6 +1,6 @@
 
 """
-FTP File Sender
+FTPSender
 
 This script connects to FTP servers and sends files from a specified folder to each server.
 It retrieves server details and folder location from environment variables and sends the
@@ -9,6 +9,7 @@ files using FTP protocol.
 Usage:
 - Ensure environment variables are set for FTP server details and folder location.
 - Run the script to initiate the file sending process.
+- More detailed instructions can be found at FTPSender's repo
 
 Author: Robert Melen
 Date: 29/4/2024
@@ -20,36 +21,22 @@ from pathlib import Path
 from servers import ftp_server_details
 
 
-
-
-
-
-
-
-
 class ErrorHandling:
 
-    '''
-
-    Error handling class
-
-    '''
+    """
+    Class to handle errors during FTP connection.
+    """
     def __init__(self, error):
         self.error = error
     def error_message(self):
         print(f"Failed to connect. Error: {self.error}")
     
 
-
-
 class FTPconnect():
 
-    '''
-
-    Class to handle connection to a FTP server
-    
-    '''
-   
+    """
+    Class to handle connection to an FTP server.
+    """
     def connect(self, host, user, password):
         try:
             ftp = ftplib.FTP(host)
@@ -62,14 +49,11 @@ class FTPconnect():
             return None
 
         
-
 class GetFiles:
 
-    '''
-
-    Class that handles folder location
-
-    '''
+    """
+    Class that handles folder location and file listing.
+    """
     def __init__(self, folder):
         self.folder = folder
         self.file_list = os.listdir(self.folder)
@@ -80,16 +64,16 @@ class GetFiles:
 
 class SendFiles(FTPconnect, GetFiles):
 
-    '''
-
-    Class to handle sending files. Inherits from FTPconnect and Getfiles
-
-    '''
+    """
+    Class to handle sending files. Inherits from FTPconnect and GetFiles.
+    """
     def __init__(self, server_details, folder):
         GetFiles.__init__(self, folder)    
         self.server_details = server_details
         self.folder = folder               
-
+    """
+    Send files to the FTP servers.
+    """
     def send(self):
         for server in self.server_details:
             send = self.connect(server['details']['host'], 
